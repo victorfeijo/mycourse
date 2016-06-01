@@ -4,7 +4,6 @@ import (
     "html"
     "log"
     "os"
-    "runtime"
     "fmt"
     "net/http"
     "github.com/gorilla/mux"
