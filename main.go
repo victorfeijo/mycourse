@@ -17,6 +17,6 @@ func main() {
 }
 
 func Index(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprint(w, "Hello, %q", html.EscapeString(r.URL.Path))
+    fmt.Fprint(w, "Hello, this site is not ready yet.", html.EscapeString(r.URL.Path))
 }
 
