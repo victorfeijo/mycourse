@@ -1,22 +1,16 @@
 package main
 
 import (
-    "html"
     "log"
     "os"
-    "fmt"
     "net/http"
-    "github.com/gorilla/mux"
+    "fmt"
 )
 
 func main() {
-    router := mux.NewRouter().StrictSlash(true)
-    router.HandleFunc("/", Index)
-    bind := fmt.Sprintf("%s:%s", os.Getenv("OPENSHIFT_GO_IP"), os.Getenv("OPENSHIFT_GO_PORT"))
+    router := NewRouter()
+    bind := fmt.Sprintf("%s:%s", os.Getenv("OPENSHIFT_GO_IP"),
+                        os.Getenv("OPENSHIFT_GO_PORT"))
+    //bind := fmt.Sprintf("%s:%s", "localhost", "8080")
     log.Fatal(http.ListenAndServe(bind, router))
 }
-
-func Index(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprint(w, "Hello, this site is not ready yet.", html.EscapeString(r.URL.Path))
-}
-
