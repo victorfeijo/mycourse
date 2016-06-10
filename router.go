@@ -2,6 +2,7 @@ package main
 
 import (
         "github.com/gorilla/mux"
+        "net/http"
 )
 
 // NewRouter wrapper from Router to muxRouter
