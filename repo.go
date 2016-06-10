@@ -1,6 +1,6 @@
 package main
 
-var currentId int
+var currentID int
 
 var grades Grades
 
@@ -30,6 +30,7 @@ func init() {
         RepoCreateGrade(Grade{Name: "Bando de Dados I", Notes: notes5})
 }
 
+// RepoFindGrade by gradeID
 func RepoFindGrade(id int) Grade {
         for _, g := range grades {
                 if g.Id == id {
@@ -40,13 +41,15 @@ func RepoFindGrade(id int) Grade {
         return Grade{}
 }
 
+// RepoCreateGrade create just on memory
 func RepoCreateGrade(g Grade) Grade {
-        currentId += 1
+        currentID++
         g.Id = currentId
         grades = append(grades, g)
         return g
 }
 
+// RepoAddNote to the Notes slice by gradeID
 func RepoAddNote(g Grade, n Note) Note {
         g.Notes = append(g.Notes, n)
         return n

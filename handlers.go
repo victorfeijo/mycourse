@@ -10,10 +10,12 @@ import (
         "github.com/gorilla/mux"
 )
 
+// Index '/' GET route handler
 func Index(w http.ResponseWriter, r *http.Request) {
         fmt.Fprintln(w, "Welcome to the grades system!")
 }
 
+// GradeIndex '/grades' GET route handler
 func GradeIndex(w http.ResponseWriter, r *http.Request) {
         w.Header().Set("Content-Type", "application/json;charset=UTF-8")
         w.WriteHeader(http.StatusOK)
@@ -23,12 +25,13 @@ func GradeIndex(w http.ResponseWriter, r *http.Request) {
         }
 }
 
+// GradeShow '/grades/ID' GET route handler
 func GradeShow(w http.ResponseWriter, r *http.Request) {
         w.Header().Set("Content-Type", "application/json;charset=UTF-8")
         w.WriteHeader(http.StatusOK)
 
         vars := mux.Vars(r)
-        gradeId, _ := strconv.Atoi(vars["gradeId"])
+        gradeID, _ := strconv.Atoi(vars["gradeId"])
         grade := RepoFindGrade(gradeId)
 
         if err := json.NewEncoder(w).Encode(grade); err != nil {
@@ -36,6 +39,7 @@ func GradeShow(w http.ResponseWriter, r *http.Request) {
         }
 }
 
+// GradeCreate 'grades/' POST route handler
 func GradeCreate(w http.ResponseWriter, r* http.Request) {
         var grade Grade
         body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
@@ -61,6 +65,7 @@ func GradeCreate(w http.ResponseWriter, r* http.Request) {
         }
 }
 
+// AddGradeNote 'grades/id' POST route handler
 func AddGradeNote(w http.ResponseWriter, r* http.Request) {
         var note Note
         body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
@@ -79,7 +84,7 @@ func AddGradeNote(w http.ResponseWriter, r* http.Request) {
         }
 
         vars := mux.Vars(r)
-        gradeId, _ := strconv.Atoi(vars["gradeId"])
+        gradeID, _ := strconv.Atoi(vars["gradeId"])
         grade := RepoFindGrade(gradeId)
         n := RepoAddNote(grade, note)
 
@@ -90,9 +95,10 @@ func AddGradeNote(w http.ResponseWriter, r* http.Request) {
         }
 }
 
+// GradeStatus 'grades/id/status' GET route handler
 func GradeStatus(w http.ResponseWriter, r *http.Request) {
         vars := mux.Vars(r)
-        gradeId, _ := strconv.Atoi(vars["gradeId"])
+        gradeID, _ := strconv.Atoi(vars["gradeId"])
         grade := RepoFindGrade(gradeId)
         status := Status{Media: grade.Avarage(), Max: grade.MaxNote(), Min: grade.MinNote()}
 

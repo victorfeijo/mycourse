@@ -4,6 +4,7 @@ import (
         "github.com/gorilla/mux"
 )
 
+// NewRouter wrapper from Router to muxRouter
 func NewRouter() *mux.Router {
 
         router := mux.NewRouter().StrictSlash(true)
