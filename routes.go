@@ -29,13 +29,13 @@ var routes = Routes{
         Route{
                 "GradeShow",
                 "GET",
-                "/grades/{gradeId}",
+                "/grades/{gradeID}",
                 GradeShow,
         },
         Route{
                 "GradeStatus",
                 "GET",
-                "/grades/{gradeId}/status",
+                "/grades/{gradeID}/status",
                 GradeStatus,
         },
         Route{
@@ -47,7 +47,7 @@ var routes = Routes{
         Route{
                 "AddGradeNote",
                 "POST",
-                "/grades/{gradeId}",
+                "/grades/{gradeID}",
                 AddGradeNote,
         },
 }

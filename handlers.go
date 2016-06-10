@@ -31,8 +31,8 @@ func GradeShow(w http.ResponseWriter, r *http.Request) {
         w.WriteHeader(http.StatusOK)
 
         vars := mux.Vars(r)
-        gradeID, _ := strconv.Atoi(vars["gradeId"])
-        grade := RepoFindGrade(gradeId)
+        gradeID, _ := strconv.Atoi(vars["gradeID"])
+        grade := RepoFindGrade(gradeID)
 
         if err := json.NewEncoder(w).Encode(grade); err != nil {
                 panic(err)
@@ -84,8 +84,8 @@ func AddGradeNote(w http.ResponseWriter, r* http.Request) {
         }
 
         vars := mux.Vars(r)
-        gradeID, _ := strconv.Atoi(vars["gradeId"])
-        grade := RepoFindGrade(gradeId)
+        gradeID, _ := strconv.Atoi(vars["gradeID"])
+        grade := RepoFindGrade(gradeID)
         n := RepoAddNote(grade, note)
 
         w.Header().Set("Content-Type", "application/json;charset=UTF-8")
@@ -98,8 +98,8 @@ func AddGradeNote(w http.ResponseWriter, r* http.Request) {
 // GradeStatus 'grades/id/status' GET route handler
 func GradeStatus(w http.ResponseWriter, r *http.Request) {
         vars := mux.Vars(r)
-        gradeID, _ := strconv.Atoi(vars["gradeId"])
-        grade := RepoFindGrade(gradeId)
+        gradeID, _ := strconv.Atoi(vars["gradeID"])
+        grade := RepoFindGrade(gradeID)
         status := Status{Media: grade.Avarage(), Max: grade.MaxNote(), Min: grade.MinNote()}
 
         w.Header().Set("Content-Type", "application/json;charset=UTF-8")

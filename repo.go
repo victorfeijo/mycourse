@@ -33,7 +33,7 @@ func init() {
 // RepoFindGrade by gradeID
 func RepoFindGrade(id int) Grade {
         for _, g := range grades {
-                if g.Id == id {
+                if g.ID == id {
                         return g
                 }
         }
@@ -44,7 +44,7 @@ func RepoFindGrade(id int) Grade {
 // RepoCreateGrade create just on memory
 func RepoCreateGrade(g Grade) Grade {
         currentID++
-        g.Id = currentId
+        g.ID = currentID
         grades = append(grades, g)
         return g
 }
