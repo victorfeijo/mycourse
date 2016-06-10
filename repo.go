@@ -46,3 +46,8 @@ func RepoCreateGrade(g Grade) Grade {
     grades = append(grades, g)
     return g
 }
+
+func RepoAddNote(g Grade, n Note) Note {
+    g.Notes = append(g.Notes, n)
+    return n
+}

@@ -25,12 +25,6 @@ var routes = Routes{
         GradeIndex,
     },
     Route{
-        "GradeCreate",
-        "POST",
-        "/grades",
-        GradeCreate,
-    },
-    Route{
         "GradeShow",
         "GET",
         "/grades/{gradeId}",
@@ -41,5 +35,17 @@ var routes = Routes{
         "GET",
         "/grades/{gradeId}/status",
         GradeStatus,
+    },
+    Route{
+        "GradeCreate",
+        "POST",
+        "/grades",
+        GradeCreate,
+    },
+    Route{
+        "AddGradeNote",
+        "POST",
+        "/grades/{gradeId}",
+        AddGradeNote,
     },
 }

@@ -61,10 +61,44 @@ func GradeCreate(w http.ResponseWriter, r* http.Request) {
     }
 }
 
+func AddGradeNote(w http.ResponseWriter, r* http.Request) {
+    var note Note
+    body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
+    if err != nil {
+        panic(err)
+    }
+    if err := r.Body.Close(); err != nil {
+        panic(err)
+    }
+    if err := json.Unmarshal(body, &note); err != nil {
+        w.Header().Set("Content-Type", "application/json;charset=UTF-8")
+        w.WriteHeader(422)
+        if err := json.NewEncoder(w).Encode(err); err != nil {
+            panic(err)
+        }
+    }
+
+    vars := mux.Vars(r)
+    gradeId, _ := strconv.Atoi(vars["gradeId"])
+    grade := RepoFindGrade(gradeId)
+    n := RepoAddNote(grade, note)
+
+    w.Header().Set("Content-Type", "application/json;charset=UTF-8")
+    w.WriteHeader(http.StatusCreated)
+    if err := json.NewEncoder(w).Encode(n); err != nil {
+        panic(err)
+    }
+}
+
 func GradeStatus(w http.ResponseWriter, r *http.Request) {
     vars := mux.Vars(r)
     gradeId, _ := strconv.Atoi(vars["gradeId"])
     grade := RepoFindGrade(gradeId)
-    fmt.Fprintln(w, "Media: ",grade.Avarage())
-    fmt.Fprintln(w, "Max: ", grade.MaxNote())
+    status := Status{Media: grade.Avarage(), Max: grade.MaxNote(), Min: grade.MinNote()}
+
+    w.Header().Set("Content-Type", "application/json;charset=UTF-8")
+    w.WriteHeader(http.StatusCreated)
+    if err := json.NewEncoder(w).Encode(status); err != nil {
+        panic(err)
+    }
 }
