@@ -21,7 +21,7 @@ func GradeIndex(w http.ResponseWriter, r *http.Request) {
     w.WriteHeader(http.StatusOK)
 
     if err := json.NewEncoder(w).Encode(grades); err != nil {
-            panic(err)
+        panic(err)
     }
 }
 
@@ -44,24 +44,24 @@ func GradeCreate(w http.ResponseWriter, r* http.Request) {
     var grade Grade
     body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
     if err != nil {
-            panic(err)
+        panic(err)
     }
     if err := r.Body.Close(); err != nil {
-            panic(err)
+        panic(err)
     }
     if err := json.Unmarshal(body, &grade); err != nil {
-            w.Header().Set("Content-Type", "application/json;charset=UTF-8")
-            w.WriteHeader(422)
-            if err := json.NewEncoder(w).Encode(err); err != nil {
-                    panic(err)
-            }
+        w.Header().Set("Content-Type", "application/json;charset=UTF-8")
+        w.WriteHeader(422)
+        if err := json.NewEncoder(w).Encode(err); err != nil {
+            panic(err)
+        }
     }
 
     g := RepoCreateGrade(grade)
     w.Header().Set("Content-Type", "application/json;charset=UTF-8")
     w.WriteHeader(http.StatusCreated)
     if err := json.NewEncoder(w).Encode(g); err != nil {
-            panic(err)
+        panic(err)
     }
 }
 
@@ -70,17 +70,17 @@ func AddGradeNote(w http.ResponseWriter, r* http.Request) {
     var note Note
     body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
     if err != nil {
-            panic(err)
+        panic(err)
     }
     if err := r.Body.Close(); err != nil {
-            panic(err)
+        panic(err)
     }
     if err := json.Unmarshal(body, &note); err != nil {
-            w.Header().Set("Content-Type", "application/json;charset=UTF-8")
-            w.WriteHeader(422)
-            if err := json.NewEncoder(w).Encode(err); err != nil {
-                    panic(err)
-            }
+        w.Header().Set("Content-Type", "application/json;charset=UTF-8")
+        w.WriteHeader(422)
+        if err := json.NewEncoder(w).Encode(err); err != nil {
+            panic(err)
+        }
     }
 
     vars := mux.Vars(r)
@@ -91,7 +91,7 @@ func AddGradeNote(w http.ResponseWriter, r* http.Request) {
     w.Header().Set("Content-Type", "application/json;charset=UTF-8")
     w.WriteHeader(http.StatusCreated)
     if err := json.NewEncoder(w).Encode(n); err != nil {
-            panic(err)
+        panic(err)
     }
 }
 
@@ -105,6 +105,6 @@ func GradeStatus(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json;charset=UTF-8")
     w.WriteHeader(http.StatusCreated)
     if err := json.NewEncoder(w).Encode(status); err != nil {
-            panic(err)
+        panic(err)
     }
 }
