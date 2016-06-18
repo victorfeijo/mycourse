@@ -35,7 +35,7 @@ func GradeShow(w http.ResponseWriter, r *http.Request) {
     grade := RepoFindGrade(gradeID)
 
     if err := json.NewEncoder(w).Encode(grade); err != nil {
-            panic(err)
+        panic(err)
     }
 }
 
