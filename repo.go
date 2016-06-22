@@ -41,8 +41,9 @@ func RepoFindGrade(id int) Grade {
         err = rows.Scan(&ID, &Name, &Completed)
         CheckErr(err)
         db.Close()
+        Notes := RepoFindNotes(ID)
 
-        return Grade{ID, Name, Completed, nil}
+        return Grade{ID, Name, Completed, Notes}
     }
 
     db.Close()
@@ -58,6 +59,28 @@ func RepoCreateGrade(g Grade) {
     _, err = stmt.Exec(g.Name, g.Completed)
     CheckErr(err)
     db.Close()
+}
+
+//RepoFindNotes find the notes from grade
+func RepoFindNotes(gradeID int) Notes {
+    db, err := sql.Open("mysql", "root:@/feijomlgo")
+    CheckErr(err)
+    rows, err := db.Query("SELECT * FROM Note WHERE GradeID=?", gradeID)
+    CheckErr(err)
+    var notes Notes
+    for rows.Next() {
+        var Name string
+        var Value float64
+        err = rows.Scan(&Name, &Value)
+        CheckErr(err)
+        db.Close()
+
+        note := Note{Name, Value}
+        notes = append(notes, note)
+    }
+
+    db.Close()
+    return notes
 }
 
 // RepoAddNote to the Notes slice by gradeID
