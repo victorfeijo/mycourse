@@ -1,9 +1,5 @@
 package main
 
-import (
-    "github.com/go-sql-driver/mysql"
-)
-
 var currentID int
 
 var grades Grades
