@@ -20,9 +20,9 @@ func GradeIndex(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json;charset=UTF-8")
     w.WriteHeader(http.StatusOK)
 
-    if err := json.NewEncoder(w).Encode(grades); err != nil {
-        panic(err)
-    }
+   // if err := json.NewEncoder(w).Encode(grades); err != nil {
+   //     panic(err)
+   // }
 }
 
 // GradeShow '/grades/ID' GET route handler
@@ -57,10 +57,10 @@ func GradeCreate(w http.ResponseWriter, r* http.Request) {
         }
     }
 
-    g := RepoCreateGrade(grade)
+    RepoCreateGrade(grade)
     w.Header().Set("Content-Type", "application/json;charset=UTF-8")
     w.WriteHeader(http.StatusCreated)
-    if err := json.NewEncoder(w).Encode(g); err != nil {
+    if err := json.NewEncoder(w).Encode(grade); err != nil {
         panic(err)
     }
 }
