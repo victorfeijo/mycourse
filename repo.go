@@ -3,8 +3,30 @@ package main
 import (
     "database/sql"
     _ "github.com/go-sql-driver/mysql"
-    "fmt"
 )
+
+// RepoGetGrades by gradeID
+func RepoGetGrades() Grades {
+    db, err := sql.Open("mysql", "root:@/feijomlgo")
+    CheckErr(err)
+    rows, err := db.Query("SELECT * FROM Grade")
+    CheckErr(err)
+    var grades Grades
+    for rows.Next() {
+        var ID int
+        var Name string
+        var Completed bool
+        err = rows.Scan(&ID, &Name, &Completed)
+        CheckErr(err)
+        db.Close()
+
+        var grade = Grade{ID, Name, Completed, nil}
+        grades = append(grades, grade)
+    }
+
+    db.Close()
+    return grades
+}
 
 // RepoFindGrade by gradeID
 func RepoFindGrade(id int) Grade {
@@ -33,9 +55,6 @@ func RepoCreateGrade(g Grade) {
     CheckErr(err)
     stmt, err := db.Prepare("INSERT Grade SET Name=?, Completed=?")
     CheckErr(err)
-    fmt.Println(g)
-    fmt.Println(g.Name)
-    fmt.Println(g.Completed)
     _, err = stmt.Exec(g.Name, g.Completed)
     CheckErr(err)
     db.Close()
